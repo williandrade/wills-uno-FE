@@ -1,0 +1,24 @@
+<svg width="238" height="332" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="240" height="334" id="canvas_background" fill="#fff"/>
+  <g id="canvasGrid" display="none">
+   <rect id="svg_3" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect fill="#c42335" stroke-width="15" x="8" y="7" width="222" height="316" id="svg_1" rx="17" stroke="#c42335"/>
+  <ellipse fill="#a81f2d" stroke-width="5" cx="119" cy="166" id="svg_12" rx="78.5" ry="103" stroke="#ffffff"/>
+  <rect fill="#ffffff" stroke="#000" stroke-width="20" stroke-opacity="null" x="-294.16498" y="-51.21875" width="267" height="137" id="svg_2"/>
+  <text fill="#ffffff" stroke="#02a962" stroke-width="0" x="204.83502" y="43.78125" id="svg_8" font-size="39" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">9</text>
+  <text fill="#ffffff" stroke="#02a962" stroke-width="0" x="-33.16498" y="200.78125" id="svg_9" font-size="39" font-family="Arvo, sans-serif" text-anchor="start" xml:space="preserve">6</text>
+  <text fill="#ffffff" stroke-width="0" x="8.83502" y="317.78125" id="svg_10" font-size="39" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="rotate(-180 19.6796875,304.109375) " stroke="#02a962">9</text>
+  <text fill="#ffffff" stroke-width="0" x="87.96478" y="250.72071" id="svg_11" font-size="162" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(0.7672359347343445,0,0,0.7893086671829224,16.95177044067532,12.384699907153845) " stroke="#02a962">9</text>
+  <line fill="none" stroke="#ffffff" stroke-width="5" x1="89.83502" y1="224.78125" x2="152.84296" y2="224.78125" id="svg_13" stroke-linejoin="null" stroke-linecap="null"/>
+  <line fill="none" stroke="#ffffff" stroke-width="5" x1="207.83502" y1="53.78125" x2="226.86132" y2="53.78125" id="svg_15" stroke-linejoin="null" stroke-linecap="null"/>
+  <line fill="none" stroke="#ffffff" stroke-width="5" x1="9.83502" y1="280.78125" x2="30.85882" y2="280.78125" id="svg_16" stroke-linejoin="null" stroke-linecap="null"/>
+ </g>
+</svg>

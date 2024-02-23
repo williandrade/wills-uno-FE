@@ -1,0 +1,25 @@
+<svg width="238" height="332" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="334" width="240" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="#212121" rx="17" id="svg_1" height="317.99999" width="222" y="7" x="8" stroke-width="15" fill="#212121"/>
+  <rect id="svg_2" height="137" width="267" y="-51.21875" x="-294.16498" stroke-opacity="null" stroke-width="20" stroke="#000" fill="#ffffff"/>
+  <text stroke="#02a962" transform="matrix(0.9516616463661194,0,0,1,10.804377323947847,0) " xml:space="preserve" text-anchor="start" font-family="Arvo, sans-serif" font-size="39" id="svg_8" y="46.78125" x="178.66677" stroke-width="0" fill="#ffffff">+4</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Arvo, sans-serif" font-size="39" id="svg_9" y="200.78125" x="-33.16498" stroke-width="0" stroke="#02a962" fill="#ffffff">6</text>
+  <text stroke="#02a962" transform="rotate(-180 41.49218750000001,296.4453125) " xml:space="preserve" text-anchor="start" font-family="Arvo, sans-serif" font-size="39" id="svg_10" y="309.78125" x="12.83502" stroke-width="0" fill="#ffffff">+4</text>
+  <rect id="svg_28" height="69" width="81" y="-94.21875" x="-316.16498" stroke-opacity="null" stroke-width="5" stroke="#a81f2d" fill="#ffffff"/>
+  <rect id="svg_29" height="70" width="89" y="47.78125" x="-197.16498" stroke-opacity="null" stroke-width="5" stroke="#a81f2d" fill="#ffffff"/>
+  <rect rx="10" id="svg_65" height="74" width="73" y="77" x="37.5" fill-opacity="null" stroke-opacity="null" stroke-width="5" stroke="#ffffff" fill="#16965c"/>
+  <rect rx="10" id="svg_68" height="74" width="73" y="107" x="71.5" stroke-opacity="null" stroke-width="5" stroke="#ffffff" fill="#0158a8"/>
+  <rect rx="10" id="svg_67" height="74" width="73" y="136" x="100.5" stroke-opacity="null" stroke-width="5" stroke="#ffffff" fill="#c42335"/>
+  <rect stroke="#ffffff" rx="10" id="svg_69" height="76" width="74" y="165" x="133.5" stroke-opacity="null" stroke-width="5" fill="#ebce2c"/>
+ </g>
+</svg>
