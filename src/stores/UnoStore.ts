@@ -1,13 +1,16 @@
 import {create} from "zustand";
+import {UnoCard} from "../types";
 
 type Store = {
-    count: number
-    inc: () => void
+    discardPile: UnoCard[],
+    currentPlayerId: null,
+    direction: {value: 1},
+    discardCard: (card: UnoCard) => void,
 }
 
 const useUnoStore = create<Store>()((set) => ({
-    count: 1,
-    inc: () => set((state) => ({ count: state.count + 1 })),
+    discardPile: [],
+    discardCard: (card) => set((state) => ({discardPile: [...state.discardPile, card]}))
 }))
 
-export default useUnoStore;
+export {useUnoStore};

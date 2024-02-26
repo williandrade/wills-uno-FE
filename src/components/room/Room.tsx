@@ -1,17 +1,11 @@
 import React from 'react';
 import './Room.css';
 import OtherPlayer from "../other_player/OtherPlayer";
-import Card from "../card/Card";
-import {Color, Type, UnoCard, Value} from "../../types";
+import Deck from "../deck/Deck";
+import Discard from "../discard/Discard";
 
 
 function Room() {
-
-    const card1: UnoCard = {
-        value: Value.Zero,
-        color: Color.Blue,
-        type: Type.Number
-    };
 
     return (
         <>
@@ -21,33 +15,29 @@ function Room() {
                         <div className="grid grid-cols-subgrid gap-6 col-span-3">
                             <div className="col-start-2">
                                 <OtherPlayer
-                                    playerName={"Player 1"}
+                                    playerName={""}
                                     isTurn={false}
-                                    numberOfCards={4}/>
+                                    numberOfCards={0}/>
                             </div>
                         </div>
                         <div className="flex justify-center items-center">
                             <OtherPlayer
-                                playerName={"Player 2"}
+                                playerName={""}
                                 isTurn={false}
-                                numberOfCards={2}/>
+                                numberOfCards={0}/>
                         </div>
                         <div>
-                            <div className="h-56 bg-slate-800 overflow-hidden bg-clip-border rounded-md">
-
-                            </div>
+                            <Discard/>
                         </div>
                         <div className="flex justify-center items-center">
                             <OtherPlayer
-                                playerName={"Player 3"}
-                                isTurn={true}
-                                numberOfCards={7}/>
+                                playerName={""}
+                                isTurn={false}
+                                numberOfCards={0}/>
                         </div>
                         <div className="grid grid-cols-subgrid gap-6 col-span-3">
-                            <div className="col-start-2">
-                                <div className={`relative w-28 overflow-hidden bg-clip-border rounded-md`}>
-                                    <Card card={card1}/>
-                                </div>
+                            <div className="col-start-2 pt-12">
+                                <Deck />
                             </div>
                         </div>
                     </div>

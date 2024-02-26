@@ -3,3 +3,6 @@
 @tailwind utilities;
 @tailwind variants;
 
+.play-card {
+    border-radius: 14px;
+}
