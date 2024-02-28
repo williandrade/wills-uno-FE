@@ -11,7 +11,7 @@ interface UnoRoom {
 interface Player {
     id: string; // Unique player identifier
     name: string; // Player's name
-    hand: UnoCard[]; // Array of cards in the player's hand
+    hand: UnoCard[] | number; // Array of cards in the player's hand
     isHost: boolean; // True if the player is the host of the room
     isReady: boolean; // True if the player is ready to start the game
     isTurn: boolean; // True if it's the player's turn

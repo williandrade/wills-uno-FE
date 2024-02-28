@@ -1,16 +1,32 @@
 import {create} from "zustand";
-import {UnoCard} from "../types";
+import {Direction, UnoCard, UnoRoom} from "../types";
 
-type Store = {
-    discardPile: UnoCard[],
-    currentPlayerId: null,
-    direction: {value: 1},
-    discardCard: (card: UnoCard) => void,
+type Store = UnoRoom  & {
+    isUserTurn: (userId: string) => boolean;
 }
 
-const useUnoStore = create<Store>()((set) => ({
-    discardPile: [],
-    discardCard: (card) => set((state) => ({discardPile: [...state.discardPile, card]}))
+const useUnoStore = create<Store>()((set, get) => ({
+    roomId: '',
+    roomName: '',
+    players: [],
+    gameState: {
+        deck: [],
+        discardPile: [],
+        currentPlayerId: '',
+        direction: {
+            value: 1
+        },
+        winnerId: '',
+        isOver: false,
+        isStarted: false,
+        isPaused: false,
+        isUnoCall: false,
+    },
+    maxPlayers: 10,
+    options: {},
+    isUserTurn: (userId: string) => {
+        return userId === get().gameState.currentPlayerId;
+    }
 }))
 
 export {useUnoStore};

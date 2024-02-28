@@ -122,6 +122,7 @@ interface state {
 function Card(props: state) {
     const getCardImport = () => {
         const name = `${props.card.color ? props.card.color?.toLowerCase() + '' : ''}${props.card.value.toLowerCase()}`;
+        console.log(`GETTING:${name}:`);
         return cardImages[name as keyof object];
     }
 
