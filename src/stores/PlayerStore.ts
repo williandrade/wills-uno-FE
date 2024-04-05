@@ -6,7 +6,7 @@ import _ from "lodash";
 type Store = {
     player: Player,
     ready: () => void,
-    setId: (id: string) => void,
+    setDefault: (user: Player) => void,
     setName: (name: string) => void,
     setHand: (hand: UnoCard[]) => void,
     playCard: (card: UnoCard) => void,
@@ -32,13 +32,30 @@ const usePlayerStore = create<Store>()((set, get) => ({
             useSocketStore.getState().socket?.emit('joinRoom', {name: get().player.name});
         }
     },
-    setId: (id: string) => set((state) => ({player: {...state.player, id}})),
-    setName: (name: string) => set((state) => ({player: {...state.player, name}})),
+    setDefault: (user: Player) => set((state) => ({
+        player: {
+            ...state.player,
+            id: user.id,
+            // name: user.name,
+            // hand: user.hand,
+            isHost: user.isHost,
+            // isReady: user.isReady,
+            isTurn: user.isTurn,
+            isUno: user.isUno,
+            isSpectator: user.isSpectator,
+        }
+    })),
+    setName: (name: string) => set((state) => {
+        document.title = `${name} - UNO Game`
+        return ({player: {...state.player, name}});
+    }),
     setHand: (hand: UnoCard[]) => set((state) => ({player: {...state.player, hand}})),
     playCard: (card: UnoCard) => {
         const {socket} = useSocketStore.getState();
         if (socket) {
-            socket.emit('playCard', card);
+            socket.emit('playCard', {
+                card
+            });
             set((state) => ({
                 player: {
                     ...state.player,

@@ -2,7 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
-
-.play-card {
-    border-radius: 18px;
-}

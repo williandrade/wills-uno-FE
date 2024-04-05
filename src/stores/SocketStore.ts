@@ -45,15 +45,27 @@ const useSocketStore = create<Store>()((set, get) => ({
 
         socket.on('roomJoined', (message: UnoRoom) => {
             console.log('::EVENT::roomJoined', message)
+            try {
+                message.players = message.players.filter(p => {
+                    if (p.name === usePlayerStore.getState().player.name) {
+                        usePlayerStore.getState().setDefault(p);
+                    }
+
+                    return p.name !== usePlayerStore.getState().player.name;
+                });
+            } catch (e) {
+            }
             useUnoStore.setState(message);
         });
 
         socket.on('playerJoined', (message: Player) => {
             console.log('::EVENT::playerJoined', message)
-            useUnoStore.setState({
-                ...useUnoStore.getState(),
-                players: [...useUnoStore.getState().players, message]
-            });
+            if (message.name !== usePlayerStore.getState().player.name) {
+                useUnoStore.setState({
+                    ...useUnoStore.getState(),
+                    players: [...useUnoStore.getState().players, message]
+                });
+            }
         });
 
         socket.on('playerLeft', (message: Player) => {
@@ -87,6 +99,17 @@ const useSocketStore = create<Store>()((set, get) => ({
 
         socket.on('playersCountUpdate', (message: Player[]) => {
             console.log('::EVENT::playersCountUpdate', message)
+            try {
+                message = message.filter(p => {
+                    if (p.name === usePlayerStore.getState().player.name) {
+                        usePlayerStore.getState().setDefault(p);
+                    }
+
+                    return p.name !== usePlayerStore.getState().player.name;
+                });
+            } catch (e) {
+            }
+
             useUnoStore.setState({
                 ...useUnoStore.getState(),
                 players: message
@@ -96,6 +119,14 @@ const useSocketStore = create<Store>()((set, get) => ({
         socket.on('cardDrawn', (message: UnoCard[]) => {
             console.log('::EVENT::cardDrawn', message)
             usePlayerStore.getState().setHand(message);
+        });
+
+        socket.on('unoCalled', (message: GameState) => {
+            console.log('::EVENT::unoCalled', message)
+            useUnoStore.setState({
+                ...useUnoStore.getState(),
+                gameState: message
+            });
         });
 
         set({socket, isConnected: true});
