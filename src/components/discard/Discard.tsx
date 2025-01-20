@@ -22,7 +22,7 @@ const DeckOfDiscard = React.memo(function DeckOfDiscard() {
                 const randomNum = random(-30, 30);
                 return (
                     <motion.div
-                        key={i}
+                        key={`${card.color}-${card.value}-${i}`}
                         className={`transition-all w-36 absolute drop-shadow-lg`}
                         initial={{opacity: 0, scale: 1.5, rotate: 0.0}}
                         animate={{opacity: 1, scale: 1, rotate: randomNum}}

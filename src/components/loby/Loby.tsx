@@ -1,13 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Loby.css";
 import logo from '../../assets/uno-logo.svg';
 import {usePlayerStore} from "../../stores/PlayerStore";
 import {Button, Input} from "@material-tailwind/react";
 import {lowerCase} from "lodash";
+import {LOCAL_STORAGE_NAME_KEY} from "../../common/constants";
 
 function Loby() {
     const playerName = usePlayerStore((state) => state.player.name);
     const {setName, ready} = usePlayerStore();
+
+    useEffect(() => {
+        if(localStorage.getItem(LOCAL_STORAGE_NAME_KEY)) {
+            setName(localStorage.getItem(LOCAL_STORAGE_NAME_KEY) || '');
+        }
+    }, []);
 
     return (
         <>

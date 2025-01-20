@@ -1,0 +1,10 @@
+.room-bg {
+  background-color: theme('colors.white');
+  opacity: 0.8;
+  background-image: radial-gradient(theme('colors.slate.400') 0.4px, theme('colors.white') 0.4px);
+  background-size: 8px 8px;
+  @media (prefers-color-scheme: dark) {
+    background-color: theme('colors.slate.900');
+    background-image: radial-gradient(theme('colors.slate.800') 0.4px, theme('colors.slate.900') 0.4px);
+  }
+}

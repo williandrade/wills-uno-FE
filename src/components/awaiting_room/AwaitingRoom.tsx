@@ -84,7 +84,7 @@ function AwaitingRoom() {
                     <p className="block text-base font-light text-center text-gray-500">
                         {players.length + 1} players on
                     </p>
-                    <div className="flex justify-center mt-10">
+                    <div className="flex justify-center m-10">
                         <Button placeholder="" type="button" onClick={() => startGame()}>
                             Start the Game
                         </Button>

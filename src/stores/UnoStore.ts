@@ -51,8 +51,19 @@ const useUnoStore = create<Store>()((set, get) => ({
 
         if (!player?.isTurn) {
             // Not player's turn
-            if (card.color === turnedCard.color
-                && card.value === turnedCard.value) {
+            if (card.value === turnedCard.value &&
+                (card.color === turnedCard.color || card.color === null)) {
+                console.log('NOT TURN BUT CAN PLAY');
+                return true;
+            }
+
+            return false;
+        }
+
+        // User needs to buy cards
+        if(player.needsToBuy > 0) {
+            if (card.value.toLowerCase().indexOf('draw') > -1) {
+                console.log('CAN PLAY buy');
                 return true;
             }
 
@@ -62,6 +73,7 @@ const useUnoStore = create<Store>()((set, get) => ({
         if (card.color === turnedCard.color
             || card.value === turnedCard.value
             || card.color === null) {
+            console.log('CAN PLAY color');
             return true;
         }
 

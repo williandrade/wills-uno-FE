@@ -10,46 +10,48 @@ import {useShallow} from "zustand/react/shallow";
 import {Draggable, Droppable} from "react-beautiful-dnd";
 import {motion} from "framer-motion";
 
-const DeckCards = React.memo(function DeckCards() {
-    const {playCard} = usePlayerStore();
+const DeckCards = React.memo(function DeckCards(props: { playCard: (card: UnoCard) => void }) {
     const {canPlayCard} = useUnoStore();
     const {cards, isTurn} = usePlayerStore(
         useShallow((state) => ({cards: state.player.hand, isTurn: state.player.isTurn})),
     );
 
+    const getStyle = (style: any, snapshot: any) => {
+        if (!snapshot.isDragging) return {};
+        if (!snapshot.isDropAnimating) {
+            return style;
+        }
+
+        return {
+            ...style,
+            // cannot be 0, but make it super tiny
+            transitionDuration: `0.001s`
+        };
+    }
+
     return (
         <>
             {(cards as UnoCard[]).map((card, i) => (
-                <Draggable key={i} draggableId={`${i}`} index={i} isDragDisabled={!(canPlayCard(card) && isTurn)}>
-                    {(provided) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                <Draggable key={i} draggableId={`${i}`} index={i} isDragDisabled={!(canPlayCard(card))}>
+                    {(provided, snapshot) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
+                             style={getStyle(provided.draggableProps.style, snapshot)}>
                             <motion.div
                                 key={i}
-                                className={`play-card bottom-0 relative w-20 md:w-32 ${(canPlayCard(card) && isTurn) ? 'cursor-pointer' : ''}`}
+                                className={`play-card bottom-0 relative w-20 md:w-32 ${(canPlayCard(card)) ? 'cursor-pointer' : ''}`}
                                 initial={{opacity: 0, scale: 1.1}}
-                                animate={{opacity: (canPlayCard(card) && isTurn) ? 1 : 0.6, scale: 1}}
-                                whileHover={(canPlayCard(card) && isTurn) ? {bottom: 20} : undefined}
+                                animate={{opacity: (canPlayCard(card)) ? 1 : 0.6, scale: 1}}
+                                whileHover={(canPlayCard(card)) ? {bottom: 20} : undefined}
                                 transition={{type: "spring", stiffness: 100}}
                                 onDoubleClick={() => {
-                                    if (!(canPlayCard(card) && isTurn)){
+                                    if (!(canPlayCard(card))) {
                                         return;
                                     }
 
-                                    playCard(card)
+                                    props.playCard(card)
                                 }}
                             >
-                                {/*<div*/}
-                                {/*    ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}*/}
-                                {/*    className={`play-card transition-all ease-in duration-75 bottom-0 relative w-20 md:w-32 ${canPlayCard(card) && isTurn ? 'hover:bottom-5 cursor-pointer' : 'opacity-40'}`}*/}
-                                {/*    onDoubleClick={() => {*/}
-                                {/*        if (!(canPlayCard(card) && isTurn)){*/}
-                                {/*            return;*/}
-                                {/*        }*/}
-
-                                {/*        playCard(card)*/}
-                                {/*    }}>*/}
                                 <Card card={card}/>
-                                {/*</div>*/}
                             </motion.div>
                         </div>
                     )}
@@ -59,14 +61,16 @@ const DeckCards = React.memo(function DeckCards() {
     )
 });
 
-function Deck() {
+function Deck(props: { playCard: (card: UnoCard) => void }) {
     return (
-        <Droppable droppableId="deck" direction={"horizontal"}>
+        <Droppable droppableId="deck" direction={"horizontal"} isCombineEnabled={false}>
             {(droppableProvided) => (
                 <div className="flex flex-wrap w-full justify-start gap-2" {...droppableProvided.droppableProps}
                      ref={droppableProvided.innerRef}>
-                    <DeckCards/>
-                    {droppableProvided.placeholder}
+                    <DeckCards {...props}/>
+                    <span style={{
+                        display: "none"
+                    }}>{droppableProvided.placeholder}</span>
                 </div>
             )}
         </Droppable>

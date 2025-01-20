@@ -1,7 +1,9 @@
 import {create} from "zustand";
-import {Player, UnoCard} from "../types";
+import {matchCard, Player, UnoCard} from "../types";
 import {useSocketStore} from "./SocketStore";
 import _ from "lodash";
+import {LOCAL_STORAGE_NAME_KEY} from "../common/constants";
+import {useUnoStore} from "./UnoStore";
 
 type Store = {
     player: Player,
@@ -10,8 +12,9 @@ type Store = {
     setName: (name: string) => void,
     setHand: (hand: UnoCard[]) => void,
     playCard: (card: UnoCard) => void,
-    drawCard: (count: number) => void,
+    drawCard: () => void,
     callUno: () => void,
+    missedUno: () => void,
 }
 
 const usePlayerStore = create<Store>()((set, get) => ({
@@ -24,6 +27,7 @@ const usePlayerStore = create<Store>()((set, get) => ({
         isTurn: false,
         isUno: false,
         isSpectator: false,
+        needsToBuy: 0,
     },
     ready: () => {
         if (get().player.name.trim() !== '') {
@@ -43,10 +47,12 @@ const usePlayerStore = create<Store>()((set, get) => ({
             isTurn: user.isTurn,
             isUno: user.isUno,
             isSpectator: user.isSpectator,
+            needsToBuy: user.needsToBuy,
         }
     })),
     setName: (name: string) => set((state) => {
         document.title = `${name} - UNO Game`
+        localStorage.setItem(LOCAL_STORAGE_NAME_KEY, name);
         return ({player: {...state.player, name}});
     }),
     setHand: (hand: UnoCard[]) => set((state) => ({player: {...state.player, hand}})),
@@ -56,18 +62,28 @@ const usePlayerStore = create<Store>()((set, get) => ({
             socket.emit('playCard', {
                 card
             });
-            set((state) => ({
-                player: {
-                    ...state.player,
-                    hand: (state.player.hand as UnoCard[]).filter(c => !_.isEqual(c, card))
+
+            set((state) => {
+                const cards = (state.player.hand as UnoCard[]);
+                const cardIndex = cards.findIndex(c => matchCard(c, card));
+                if (cardIndex !== -1) {
+                    cards.splice(cardIndex, 1);
                 }
-            }));
+
+                return {
+                    player: {
+                        ...state.player,
+                        hand: cards
+                    }
+                }
+            });
         }
     },
-    drawCard: (count: number) => {
+    drawCard: () => {
         const {socket} = useSocketStore.getState();
+        const {player} = usePlayerStore.getState();
         if (socket) {
-            socket.emit('drawCard', {count});
+            socket.emit('drawCard', {count: player.needsToBuy ?? 1});
         }
     },
     callUno: () => {
@@ -76,6 +92,12 @@ const usePlayerStore = create<Store>()((set, get) => ({
             socket.emit('callUno');
         }
     },
+    missedUno: () => {
+        const {socket} = useSocketStore.getState();
+        if (socket) {
+            socket.emit('missedUno');
+        }
+    }
 }));
 
 export {usePlayerStore};

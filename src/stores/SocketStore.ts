@@ -13,7 +13,8 @@ type Store = {
     connect: () => void,
 }
 
-const BE_URL = 'localhost:3000';
+// const BE_URL = 'uno.williandrade.me/backend';
+const BE_URL = 'localhost:3000/backend';
 
 const useSocketStore = create<Store>()((set, get) => ({
     socket: null,
@@ -31,6 +32,11 @@ const useSocketStore = create<Store>()((set, get) => ({
         });
 
         // EVENTS
+        socket.on('gameEnded', (message) => {
+            console.log('::EVENT::gameEnded', message)
+            window.location.href = '/';
+        });
+
         socket.on('error', (message) => {
             console.log('::EVENT::error', message)
             toast.error(message);

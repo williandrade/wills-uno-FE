@@ -16,6 +16,7 @@ interface Player {
     isReady: boolean; // True if the player is ready to start the game
     isTurn: boolean; // True if it's the player's turn
     isUno: boolean; // True if the player has called UNO
+    needsToBuy: number; // Number of cards the player needs to buy
     isSpectator: boolean; // True if the player is just spectating
 }
 
@@ -76,5 +77,15 @@ interface UnoCard {
     type: Type;
 }
 
-export {Color, Value, Type};
+function matchCard(card: UnoCard, other: UnoCard): boolean {
+    if(card.type === Type.Wild || card.type === Type.WildDrawFour) {
+        return card.type === other.type && card.value === other.value;
+    }
+
+    return card.color === other.color &&
+        card.value === other.value &&
+        card.type === other.type;
+}
+
+export {Color, Value, Type, matchCard};
 export type { UnoRoom, Player, GameState, UnoRoomOptions, Direction, UnoCard };

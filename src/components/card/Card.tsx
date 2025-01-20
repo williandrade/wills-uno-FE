@@ -125,7 +125,7 @@ function Card(props: state) {
             return cardImages.cardback;
         }
 
-        const name = `${props.card.color ? props.card.color?.toLowerCase() + '' : ''}${props.card.value.toLowerCase()}`;
+        const name = `${!['wild', 'wilddrawfour'].includes(props.card.value.toLowerCase()) ? props.card.color?.toLowerCase() + '' : ''}${props.card.value.toLowerCase()}`;
         return cardImages[name as keyof object];
     }
 
